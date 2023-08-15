@@ -1,13 +1,19 @@
 import PropTypes from "prop-types";
+import { useCountries } from "./contexts/CitiesContext";
 CountryItem.propTypes = {
   data: PropTypes.object,
   checkDetails: PropTypes.func,
 };
 
 function CountryItem({ data, checkDetails }) {
+  const { getSingleCountry } = useCountries();
+
   function handleClick(e) {
     e.preventDefault();
-    checkDetails(e, data);
+
+    getSingleCountry(data.alpha3Code);
+
+    checkDetails(e);
   }
 
   return (

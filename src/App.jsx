@@ -1,10 +1,11 @@
+import { CountriesProvider } from "./contexts/CitiesContext";
 import AppLayout from "./AppLayout";
 
 function App() {
   return (
-    <div>
+    <CountriesProvider>
       <AppLayout />
-    </div>
+    </CountriesProvider>
   );
 }
 

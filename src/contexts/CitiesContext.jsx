@@ -1,57 +1,117 @@
-import { createContext, useEffect, useContext, useReducer } from "react";
+import {
+  createContext,
+  useEffect,
+  useContext,
+  useReducer,
+  useCallback,
+} from "react";
 import PropTypes from "prop-types";
 
-const CitiesContext = createContext();
+const LOAD_COUNTRIES = "load-countries";
+const QUERY_SINGLE_COUNTRY = "query-single-country";
+
+const CountriesContext = createContext();
 
 const initalState = {
-  cities: [],
+  countries: [],
   isLoading: false,
-  currentCity: {},
+  currentCountry: {},
   error: "",
 };
 
 function reducer(state, action) {
   switch (action.type) {
-    case "loadData":
+    case "loading":
+      return { ...state, isLoading: true };
+    case LOAD_COUNTRIES:
       return {
         ...state,
-        cities: action.payload,
+        isLoading: false,
+        countries: action.payload,
+      };
+    case QUERY_SINGLE_COUNTRY:
+      return {
+        ...state,
+        isLoading: false,
+        currentCountry: action.payload,
+      };
+    case "rejected":
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
       };
     default:
       throw new Error("Unknown action type");
   }
 }
 
-CitiesProvider.propTypes = {
+CountriesProvider.propTypes = {
   children: PropTypes.any,
 };
 
-function CitiesProvider({ children }) {
-  const [{ cities, currentCity }, dispatch] = useReducer(reducer, initalState);
+function CountriesProvider({ children }) {
+  const [{ countries, currentCountry, isLoading }, dispatch] = useReducer(
+    reducer,
+    initalState
+  );
 
+  /*  Load all country information  */
   useEffect(function () {
-    async function readCitiesJson() {
-      const res = await fetch("./data.json");
-      const data = res.json();
-      dispatch({ type: "loadData", paylod: data });
+    async function readJson() {
+      dispatch({ type: "loading" });
+      try {
+        const res = await fetch("./data.json");
+        const data = await res.json();
+
+        // console.log(LOAD_COUNTRIES, data);
+        dispatch({ type: LOAD_COUNTRIES, payload: data });
+      } catch (error) {
+        dispatch({
+          type: "rejected",
+          payload: "There was an error loading countries...",
+        });
+      }
     }
-    readCitiesJson();
+    readJson();
   }, []);
 
-  // function getCurrent
+  /*  get single country information  */
+  const getSingleCountry = useCallback(
+    async function getCountry(code) {
+      if (currentCountry.alpha3Code === code) return;
+      dispatch({ type: "loading" });
+      try {
+        const res = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
+        const data = await res.json();
+
+        // console.log(QUERY_SINGLE_COUNTRY, data);
+
+        dispatch({ type: QUERY_SINGLE_COUNTRY, payload: data[0] });
+      } catch (error) {
+        dispatch({
+          type: "rejected",
+          payload: "There was an error loading the country...",
+        });
+      }
+    },
+    [currentCountry.alpha3Code]
+  );
 
   return (
-    <CitiesContext.Provider value={{ cities, currentCity }}>
+    <CountriesContext.Provider
+      value={{ countries, currentCountry, getSingleCountry, isLoading }}
+    >
       {children}
-    </CitiesContext.Provider>
+    </CountriesContext.Provider>
   );
 }
 
-function useCities() {
-  const context = useContext(CitiesContext);
+function useCountries() {
+  const context = useContext(CountriesContext);
   if (context === undefined)
-    throw new Error("CitiesContext was used outside the CitiesProvider");
+    throw new Error("CountriesContext was used outside the CountriesProvider");
   return context;
 }
 
-export { CitiesProvider, useCities };
+export { CountriesProvider, useCountries };

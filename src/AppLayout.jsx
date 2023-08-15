@@ -1,30 +1,17 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NavBar from "./NavBar";
 import SearchCountry from "./SearchCountry";
 import CountryList from "./CountryList";
 import CountryDetails from "./CountryDetails";
+import { useCountries } from "./contexts/CitiesContext";
+
+// const REST_API_ALL = "https://restcountries.com/v3.1/all";
 
 function AppLayout() {
   const [theme, setTheme] = useState("theme-light");
-  const [countryData, setCountryData] = useState("");
   const [isCheckDetails, setIsCheckDetails] = useState(false);
-  const [countryDetailsData, setCountryDetailsData] = useState("");
 
-  try {
-    useEffect(() => {
-      async function readJson() {
-        const res = await fetch("./data.json");
-        const data = await res.json();
-
-        // console.log("111", res, data);
-        if (!data) throw new Error("read data failure");
-        setCountryData(data);
-      }
-      readJson();
-    }, []);
-  } catch (error) {
-    console.log(error);
-  }
+  const { countries } = useCountries();
 
   function handleSwitchTheme(e) {
     e.preventDefault();
@@ -33,13 +20,8 @@ function AppLayout() {
     else setTheme("theme-light");
   }
 
-  function handleCheckDetails(e, data) {
+  function handleCheckDetails(e) {
     e.preventDefault();
-
-    console.log(e.target);
-    console.log(data);
-    setCountryDetailsData(data);
-
     setIsCheckDetails((isCheckDetails) => !isCheckDetails);
   }
 
@@ -52,26 +34,23 @@ function AppLayout() {
   return (
     <div className="bg-theme-light-main text-theme-light-primary">
       {/* <div className={`text-${theme}-primary bg-${theme}-main`}> */}
-      <header className="">
+      {/* {isLoading && <Loader />} */}
+      <header>
         <NavBar switchTheme={handleSwitchTheme} />
       </header>
       <main>
         {isCheckDetails && (
           <section>
-            <CountryDetails
-              theme={theme}
-              data={countryDetailsData}
-              goBack={goBack}
-            />
+            <CountryDetails theme={theme} goBack={goBack} />
           </section>
         )}
         {!isCheckDetails && (
           <section>
             <SearchCountry theme={theme} />
-            {countryData && (
+            {countries && (
               <CountryList
                 theme={theme}
-                countryData={countryData}
+                countries={countries}
                 checkDetails={handleCheckDetails}
               />
             )}

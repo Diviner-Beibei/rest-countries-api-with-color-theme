@@ -1,10 +1,37 @@
 import PropTypes from "prop-types";
+import { useCountries } from "./contexts/CitiesContext";
+import Loader from "./Loader";
 CountryDetails.propTypes = {
-  data: PropTypes.object,
   goBack: PropTypes.func,
 };
 
-function CountryDetails({ data, goBack }) {
+function CountryDetails({ goBack }) {
+  const { currentCountry: data, isLoading } = useCountries();
+  console.log(isLoading, data);
+  if (isLoading || !data) return <Loader />;
+
+  let languages,
+    currenciesName,
+    nativeName = "";
+
+  if (data.languages)
+    languages = Object.entries(data.languages)
+      .map((e) => e[1])
+      .join(", ");
+
+  if (data.currencies)
+    currenciesName = Object.entries(data.currencies)[0][1].name;
+
+  if (data.name.nativeName)
+    nativeName = Object.entries(data.name.nativeName)[0][1].official;
+
+  console.log(
+    languages,
+    currenciesName,
+    "---",
+    Object.entries(data.name.nativeName)[0][1].official
+  );
+  // return <></>;
   return (
     <div
       className={`bg-theme-light-block pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base`}
@@ -43,12 +70,12 @@ function CountryDetails({ data, goBack }) {
 
         <div className="flex flex-col lg:flex-row gap-5 lg:relative xl:pt-8">
           <h2 className="text-2xl lg:text-4xl font-extrabold mt-3 lg:absolute">
-            {data["name"]}
+            {data["name"]["common"]}
           </h2>
           <ul className="font-light flex flex-col gap-2 lg:mt-20">
             <li>
               <span className="font-semibold">Native Name: </span>
-              {data["nativeName"]}
+              {nativeName}
             </li>
             <li>
               <span className="font-semibold">Population: </span>
@@ -64,22 +91,22 @@ function CountryDetails({ data, goBack }) {
             </li>
             <li>
               <span className="font-semibold">Capital: </span>
-              {data["capital"]}
+              {data["capital"] && data["capital"][0]}
             </li>
           </ul>
 
           <ul className="font-light flex flex-col gap-2 lg:mt-20">
             <li>
               <span className="font-semibold">Top Level Domain: </span>
-              {data["topLevelDomain"]}
+              {data["tld"] && data["tld"][0]}
             </li>
             <li>
               <span className="font-semibold">Currencies: </span>
-              {data["currencies"]["name"]}
+              {currenciesName}
             </li>
             <li>
               <span className="font-semibold">Languages: </span>
-              {data["languages"].map((e) => e["name"]).join(" ,")}
+              {languages}
             </li>
           </ul>
 
@@ -90,7 +117,7 @@ function CountryDetails({ data, goBack }) {
                 {data["borders"].map((e) => {
                   return (
                     <li className="shadow-normal px-4 py-1" key={e}>
-                      ${e}
+                      {e}
                     </li>
                   );
                 })}
