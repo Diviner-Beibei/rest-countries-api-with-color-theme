@@ -6,7 +6,9 @@ CountryDetails.propTypes = {
 
 function CountryDetails({ data, goBack }) {
   return (
-    <div className={`bg-theme-light-block py-10 mt-1 text-sm lg:text-base`}>
+    <div
+      className={`bg-theme-light-block pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base`}
+    >
       <button
         className="flex gap-2 rounded-sm shadow-[0px_0px_7px_0_rgba(0,0,0,0.3)] px-4 py-2 ml-6"
         onClick={goBack}
@@ -32,11 +34,11 @@ function CountryDetails({ data, goBack }) {
         <span className="font-light text-sm font-nunito-sans">Back</span>
       </button>
 
-      <div className="flex flex-col gap-5 md:gap-0 lg:gap-20 xl:gap-32 mt-12 mx-auto w-[320px] justify-center md:flex-row md:w-full md:justify-around lg:justify-center">
+      <div className="flex flex-col gap-5 lg:gap-20 xl:gap-32 mt-12 mx-auto w-[320px] justify-center md:flex-row md:w-full md:justify-around lg:justify-center">
         <img
           src={data["flags"]["svg"]}
           alt="national flag"
-          className="max-w-[320px] shadow-sm  md:max-w-[380px] lg:max-w-[450px] xl:max-w-[560px]"
+          className="bg-cover max-w-[320px] shadow-md  md:max-w-[380px] lg:max-w-[450px] xl:max-w-[560px]"
         />
 
         <div className="flex flex-col lg:flex-row gap-5 lg:relative xl:pt-8">
@@ -81,10 +83,10 @@ function CountryDetails({ data, goBack }) {
             </li>
           </ul>
 
-          <div className="lg:absolute lg:top-64 xl:top-72">
-            {data["borders"] && (
-              <>
-                <h3 className="text-base font-semibold">Border Countries: </h3>
+          {data["borders"] && (
+            <div className="lg:absolute lg:top-64 xl:top-72 mb-10 lg:pb-20">
+              <h3 className="text-base font-semibold">Border Countries: </h3>
+              <ul className="flex flex-wrap gap-3 mt-4 md:max-w-[380px] lg:max-w-none">
                 {data["borders"].map((e) => {
                   return (
                     <li className="shadow-normal px-4 py-1" key={e}>
@@ -92,20 +94,9 @@ function CountryDetails({ data, goBack }) {
                     </li>
                   );
                 })}
-              </>
-            )}
-            {/* <h3 className="text-base font-semibold">Border Countries: </h3>
-            <ul className="flex gap-3 mt-4">
-              {data["borders"] &&
-                data["borders"].map((e) => {
-                  return (
-                    <li className="shadow-normal px-4 py-1" key={e}>
-                      ${e}
-                    </li>
-                  );
-                })}
-            </ul> */}
-          </div>
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </div>
