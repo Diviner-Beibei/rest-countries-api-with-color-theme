@@ -18,7 +18,7 @@ function CountryItem({ data, checkDetails }) {
       <img
         src={data["flags"]["svg"]}
         alt="national flag"
-        className="min-h-[160px]"
+        className="min-h-[160px] shadow-sm"
       />
       <h2 className="text-lg font-extrabold pl-8">{data["name"]}</h2>
       <div className="text-sm font-light pl-8 pb-12 flex flex-col gap-1">

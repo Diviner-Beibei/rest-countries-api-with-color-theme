@@ -32,9 +32,9 @@ function SearchCountry({ theme }) {
   }
 
   return (
-    <div className="mt-5">
+    <div className="py-5 px-4 flex flex-col gap-10 flex-grow md:flex-row md:items-center md:justify-between md:px-10">
       {/* shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] */}
-      <div className="flex items-center gap-2 px-5 py-2 max-w-[343px] max-h-[48px] ml-4 rounded-md shadow-normal relative">
+      <div className="flex items-center gap-2 px-5 py-2 w-[343px] max-h-[48px] rounded-md shadow-md relative md:max-w-none lg:w-[480px]">
         <svg
           width="16"
           height="16"
@@ -54,16 +54,16 @@ function SearchCountry({ theme }) {
           type="text"
           onChange={handleSearch}
           value={search}
-          className={`text-${theme}-search px-4 py-2 focus:outline-none text-xs`}
+          className={`text-${theme}-search px-4 py-2 focus:outline-none text-xs w-full`}
           placeholder="Search for a country..."
         />
       </div>
 
       <div
-        className={`mt-10 shadow-md max-w-[200px] ml-4 overflow-hidden rounded-md text-xs font-nunito-sans`}
+        className={`shadow-normal max-w-[200px] overflow-hidden rounded-md text-xs font-nunito-sans`}
       >
         <button
-          className={`pl-8 py-3 flex items-center gap-12 rounded-md bg-${theme}-block w-full overflow-hidden`}
+          className={`pl-8 py-4 flex items-center gap-12 md:pr-4 rounded-md bg-${theme}-block w-full overflow-hidden`}
           onClick={handleOpenFilter}
         >
           <span>Filter by Region</span>

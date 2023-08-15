@@ -43,6 +43,11 @@ function AppLayout() {
     setIsCheckDetails((isCheckDetails) => !isCheckDetails);
   }
 
+  function goBack(e) {
+    e.preventDefault();
+    setIsCheckDetails((isCheckDetails) => !isCheckDetails);
+  }
+
   //bg-theme-light-main text-theme-light-primary
   return (
     <div className="bg-theme-light-main text-theme-light-primary">
@@ -53,7 +58,11 @@ function AppLayout() {
       <main>
         {isCheckDetails && (
           <section>
-            <CountryDetails data={countryDetailsData} />
+            <CountryDetails
+              theme={theme}
+              data={countryDetailsData}
+              goBack={goBack}
+            />
           </section>
         )}
         {!isCheckDetails && (
@@ -69,7 +78,6 @@ function AppLayout() {
           </section>
         )}
       </main>
-      ;
     </div>
   );
 }

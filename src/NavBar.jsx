@@ -5,7 +5,7 @@ NavBar.propTypes = {
 
 function NavBar({ switchTheme }) {
   return (
-    <nav className="flex justify-between px-6 py-8 shadow-md font-nunito-sans">
+    <nav className="flex justify-between px-6 md:px-10 py-8 shadow-md font-nunito-sans">
       <h1 className="text-sm font-extrabold">Where in the world?</h1>
       <button
         className="text-xs font-semibold flex gap-2 items-center"
