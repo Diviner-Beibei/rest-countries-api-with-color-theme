@@ -6,17 +6,22 @@ SearchCountry.propTypes = {
 };
 
 function SearchCountry({ theme }) {
-  const [search, setSearch] = useState("");
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  // const [continent, setContinent] = useState("");
 
-  const { currentRegion, getCountriesByRegion } = useCountries();
+  const {
+    currentRegion,
+    getCountriesByRegion,
+    queryInfo,
+    getCountriesByInput,
+  } = useCountries();
 
   function handleSearch(e) {
     e.preventDefault();
-    if (e.target.value.length < 3 || !currentRegion) return;
+    // if (e.target.value.length < 2) return;
+    if (!/[a-z]/gi.test(e.target.value)) return;
 
-    setSearch(e.target.value);
+    // console.log(e.target.value);
+    getCountriesByInput(e.target.value);
   }
 
   function handleSelectContinent(e) {
@@ -32,7 +37,6 @@ function SearchCountry({ theme }) {
     e.preventDefault();
 
     setIsOpenFilter((isOpenFilter) => !isOpenFilter);
-    // console.log("open", isOpenFilter);
   }
 
   return (
@@ -57,7 +61,7 @@ function SearchCountry({ theme }) {
         <input
           type="text"
           onChange={handleSearch}
-          value={search}
+          value={queryInfo}
           className={`text-${theme}-search px-4 py-2 focus:outline-none text-xs w-full`}
           placeholder="Search for a country..."
         />

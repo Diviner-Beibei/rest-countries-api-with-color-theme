@@ -6,7 +6,7 @@ CountryDetails.propTypes = {
 };
 
 function CountryDetails({ goBack }) {
-  const { currentCountry: data, isLoading } = useCountries();
+  const { currentCountry: data, isLoading, getCountryByCode } = useCountries();
   console.log(isLoading, data);
   if (isLoading || !data) return <Loader />;
 
@@ -31,7 +31,15 @@ function CountryDetails({ goBack }) {
     "---",
     Object.entries(data.name.nativeName)[0][1].official
   );
-  // return <></>;
+
+  function handleBorderClick(e) {
+    if (e.target.classList.contains("ccode")) {
+      // console.log(e.target.classList);
+
+      getCountryByCode(e.target.textContent);
+    }
+  }
+
   return (
     <div
       className={`bg-theme-light-block pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base`}
@@ -113,10 +121,13 @@ function CountryDetails({ goBack }) {
           {data["borders"] && (
             <div className="lg:absolute lg:top-64 xl:top-72 mb-10 lg:pb-20">
               <h3 className="text-base font-semibold">Border Countries: </h3>
-              <ul className="flex flex-wrap gap-3 mt-4 md:max-w-[380px] lg:max-w-none">
+              <ul
+                className="flex flex-wrap gap-3 mt-4 md:max-w-[380px] lg:max-w-none"
+                onClick={handleBorderClick}
+              >
                 {data["borders"].map((e) => {
                   return (
-                    <li className="shadow-normal px-4 py-1" key={e}>
+                    <li className="shadow-normal px-4 py-1 ccode" key={e}>
                       {e}
                     </li>
                   );
