@@ -42,7 +42,9 @@ function SearchCountry({ theme }) {
   return (
     <div className="py-5 px-4 flex flex-col gap-10 flex-grow md:flex-row md:items-center md:justify-between md:px-10">
       {/* shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] */}
-      <div className="flex items-center gap-2 px-5 py-2 w-[343px] max-h-[48px] rounded-md shadow-md relative md:max-w-none lg:w-[480px]">
+      <div
+        className={`flex items-center gap-2 px-5 py-2 w-[343px] max-h-[48px] rounded-md shadow-md relative md:max-w-none lg:w-[480px] bg-${theme}-block`}
+      >
         <svg
           width="16"
           height="16"
@@ -62,7 +64,7 @@ function SearchCountry({ theme }) {
           type="text"
           onChange={handleSearch}
           value={queryInfo}
-          className={`text-${theme}-search px-4 py-2 focus:outline-none text-xs w-full`}
+          className={`text-${theme}-search px-4 py-2 focus:outline-none text-xs w-full bg-${theme}-block`}
           placeholder="Search for a country..."
         />
       </div>

@@ -7,14 +7,14 @@ import CountryDetails from "./CountryDetails";
 // const REST_API_ALL = "https://restcountries.com/v3.1/all";
 
 function AppLayout() {
-  const [theme, setTheme] = useState("theme-light");
+  const [theme, setTheme] = useState("light");
   const [isCheckDetails, setIsCheckDetails] = useState(false);
 
   function handleSwitchTheme(e) {
     e.preventDefault();
 
-    if (theme === "theme-light") setTheme("theme-dark");
-    else setTheme("theme-light");
+    if (theme === "light") setTheme("dark");
+    else setTheme("light");
   }
 
   function handleCheckDetails(e) {
@@ -27,13 +27,13 @@ function AppLayout() {
     setIsCheckDetails((isCheckDetails) => !isCheckDetails);
   }
 
-  //bg-theme-light-main text-theme-light-primary
+  // const style = `text-dark-primary bg-dark-main h-sscreen`;
+  //text-${theme}-primary bg-${theme}-main h-screen
   return (
-    <div className="bg-theme-light-main text-theme-light-primary">
-      {/* <div className={`text-${theme}-primary bg-${theme}-main`}> */}
+    <div className={`text-${theme}-primary bg-${theme}-main`}>
       {/* {isLoading && <Loader />} */}
       <header>
-        <NavBar switchTheme={handleSwitchTheme} />
+        <NavBar theme={theme} switchTheme={handleSwitchTheme} />
       </header>
       <main>
         {isCheckDetails && (

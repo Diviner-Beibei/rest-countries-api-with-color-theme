@@ -3,9 +3,10 @@ import { useCountries } from "./contexts/CitiesContext";
 import Loader from "./Loader";
 CountryDetails.propTypes = {
   goBack: PropTypes.func,
+  theme: PropTypes.string,
 };
 
-function CountryDetails({ goBack }) {
+function CountryDetails({ goBack, theme }) {
   const { currentCountry: data, isLoading, getCountryByCode } = useCountries();
   console.log(isLoading, data);
   if (isLoading || !data) return <Loader />;
@@ -39,31 +40,22 @@ function CountryDetails({ goBack }) {
       getCountryByCode(e.target.textContent);
     }
   }
-
+  //theme === "light" ? "" : "fill-white"
   return (
     <div
-      className={`bg-theme-light-block pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base`}
+      className={`bg-${theme}-main pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base h-screen`}
     >
       <button
-        className="flex gap-2 rounded-sm shadow-[0px_0px_7px_0_rgba(0,0,0,0.3)] px-4 py-2 ml-6"
+        className={`flex gap-2 items-center rounded-sm shadow-[0px_0px_7px_0_rgba(0,0,0,0.3)] px-4 py-2 ml-6 bg-${theme}-block`}
         onClick={goBack}
       >
         <svg
-          width="18"
-          height="18"
-          viewBox="0 0 18 18"
-          fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          height="1em"
+          viewBox="0 0 448 512"
+          className={theme === "light" ? "" : "fill-white"}
         >
-          <g id="call-made">
-            <path
-              id="Shape"
-              fillRule="evenodd"
-              clipRule="evenodd"
-              d="M5.81802 3.6967L6.87868 4.75736L3.3785 8.25754H16.7428L16.7428 9.74246H3.3785L6.87868 13.2426L5.81802 14.3033L0.514719 9L5.81802 3.6967Z"
-              fill="#111517"
-            />
-          </g>
+          <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" />
         </svg>
 
         <span className="font-light text-sm font-nunito-sans">Back</span>
@@ -73,7 +65,7 @@ function CountryDetails({ goBack }) {
         <img
           src={data["flags"]["svg"]}
           alt="national flag"
-          className="bg-cover max-w-[320px] shadow-md  md:max-w-[380px] lg:max-w-[450px] xl:max-w-[560px]"
+          className="bg-cover max-w-[320px] shadow-md  md:max-w-[380px] lg:max-w-[450px] xl:max-w-[560px] rounded-md"
         />
 
         <div className="flex flex-col lg:flex-row gap-5 lg:relative xl:pt-8">
@@ -127,7 +119,10 @@ function CountryDetails({ goBack }) {
               >
                 {data["borders"].map((e) => {
                   return (
-                    <li className="shadow-normal px-4 py-1 ccode" key={e}>
+                    <li
+                      className={`shadow-normal px-4 py-1 ccode bg-${theme}-block`}
+                      key={e}
+                    >
                       {e}
                     </li>
                   );

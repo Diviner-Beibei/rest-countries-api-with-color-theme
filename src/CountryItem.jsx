@@ -1,14 +1,13 @@
 import PropTypes from "prop-types";
 import { useCountries } from "./contexts/CitiesContext";
 CountryItem.propTypes = {
+  theme: PropTypes.string,
   data: PropTypes.object,
   checkDetails: PropTypes.func,
 };
 
-function CountryItem({ data, checkDetails }) {
+function CountryItem({ data, checkDetails, theme }) {
   const { getCountryByCode } = useCountries();
-
-  // console.log(data);
 
   function handleClick(e) {
     e.preventDefault();
@@ -20,7 +19,7 @@ function CountryItem({ data, checkDetails }) {
 
   return (
     <div
-      className="rounded-xl overflow-hidden bg-theme-light-block w-[264px] flex flex-col gap-5 font-nunito-sans shadow-sm"
+      className={`rounded-xl overflow-hidden bg-theme-light-block w-[264px] flex flex-col gap-5 font-nunito-sans shadow-sm bg-${theme}-block`}
       onClick={handleClick}
     >
       <img
