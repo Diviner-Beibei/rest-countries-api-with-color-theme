@@ -30,7 +30,7 @@ function AppLayout() {
   // const style = `text-dark-primary bg-dark-main h-sscreen`;
   //text-${theme}-primary bg-${theme}-main h-screen
   return (
-    <div className={`text-${theme}-primary bg-${theme}-main`}>
+    <div className={`text-${theme}-primary bg-${theme}-main min-w-[375px]`}>
       {/* {isLoading && <Loader />} */}
       <header>
         <NavBar theme={theme} switchTheme={handleSwitchTheme} />
