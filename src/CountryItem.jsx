@@ -6,13 +6,15 @@ CountryItem.propTypes = {
 };
 
 function CountryItem({ data, checkDetails }) {
-  const { getSingleCountry } = useCountries();
+  const { getCountryByCode } = useCountries();
+
+  // console.log(data);
 
   function handleClick(e) {
     e.preventDefault();
 
-    getSingleCountry(data.alpha3Code);
-
+    getCountryByCode(data.cca3);
+    console.log(data);
     checkDetails(e);
   }
 
@@ -26,7 +28,7 @@ function CountryItem({ data, checkDetails }) {
         alt="national flag"
         className="min-h-[160px] shadow-sm"
       />
-      <h2 className="text-lg font-extrabold pl-8">{data["name"]}</h2>
+      <h2 className="text-lg font-extrabold pl-8">{data?.name?.common}</h2>
       <div className="text-sm font-light pl-8 pb-12 flex flex-col gap-1">
         <p className="">
           <span className="font-semibold">Population:</span>
@@ -38,7 +40,7 @@ function CountryItem({ data, checkDetails }) {
         </p>
         <p className="">
           <span className="font-semibold">Capital:</span>
-          {data["capital"]}
+          {data["capital"] && data["capital"][0]}
         </p>
       </div>
     </div>

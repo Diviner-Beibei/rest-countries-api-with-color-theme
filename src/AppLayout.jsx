@@ -3,15 +3,12 @@ import NavBar from "./NavBar";
 import SearchCountry from "./SearchCountry";
 import CountryList from "./CountryList";
 import CountryDetails from "./CountryDetails";
-import { useCountries } from "./contexts/CitiesContext";
 
 // const REST_API_ALL = "https://restcountries.com/v3.1/all";
 
 function AppLayout() {
   const [theme, setTheme] = useState("theme-light");
   const [isCheckDetails, setIsCheckDetails] = useState(false);
-
-  const { countries } = useCountries();
 
   function handleSwitchTheme(e) {
     e.preventDefault();
@@ -47,13 +44,7 @@ function AppLayout() {
         {!isCheckDetails && (
           <section>
             <SearchCountry theme={theme} />
-            {countries && (
-              <CountryList
-                theme={theme}
-                countries={countries}
-                checkDetails={handleCheckDetails}
-              />
-            )}
+            <CountryList theme={theme} checkDetails={handleCheckDetails} />
           </section>
         )}
       </main>

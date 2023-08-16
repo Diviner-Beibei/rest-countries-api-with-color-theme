@@ -9,13 +9,16 @@ import PropTypes from "prop-types";
 
 const LOAD_COUNTRIES = "load-countries";
 const QUERY_SINGLE_COUNTRY = "query-single-country";
+const GET_COUNTRIRS_BY_REGION = "get-countries-by-region";
 
 const CountriesContext = createContext();
 
 const initalState = {
   countries: [],
+  currentCountries: [],
   isLoading: false,
   currentCountry: {},
+  currentRegion: "",
   error: "",
 };
 
@@ -28,6 +31,14 @@ function reducer(state, action) {
         ...state,
         isLoading: false,
         countries: action.payload,
+        currentCountries: action.payload,
+      };
+    case GET_COUNTRIRS_BY_REGION:
+      return {
+        ...state,
+        isLoading: false,
+        currentRegion: action.payload.region,
+        currentCountries: action.payload.regionCountries,
       };
     case QUERY_SINGLE_COUNTRY:
       return {
@@ -51,17 +62,17 @@ CountriesProvider.propTypes = {
 };
 
 function CountriesProvider({ children }) {
-  const [{ countries, currentCountry, isLoading }, dispatch] = useReducer(
-    reducer,
-    initalState
-  );
+  const [
+    { countries, currentCountry, currentRegion, currentCountries, isLoading },
+    dispatch,
+  ] = useReducer(reducer, initalState);
 
   /*  Load all country information  */
   useEffect(function () {
-    async function readJson() {
+    async function loadAllCountries() {
       dispatch({ type: "loading" });
       try {
-        const res = await fetch("./data.json");
+        const res = await fetch("https://restcountries.com/v3.1/all");
         const data = await res.json();
 
         // console.log(LOAD_COUNTRIES, data);
@@ -69,38 +80,69 @@ function CountriesProvider({ children }) {
       } catch (error) {
         dispatch({
           type: "rejected",
-          payload: "There was an error loading countries...",
+          payload: "There was an error loading all countries...",
         });
       }
     }
-    readJson();
+    loadAllCountries();
   }, []);
 
-  /*  get single country information  */
-  const getSingleCountry = useCallback(
-    async function getCountry(code) {
+  /*  get single country information  by code */
+  const getCountryByCode = useCallback(
+    async function getCountryByCode(code) {
       if (currentCountry.alpha3Code === code) return;
       dispatch({ type: "loading" });
       try {
         const res = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
         const data = await res.json();
-
-        // console.log(QUERY_SINGLE_COUNTRY, data);
-
         dispatch({ type: QUERY_SINGLE_COUNTRY, payload: data[0] });
       } catch (error) {
         dispatch({
           type: "rejected",
-          payload: "There was an error loading the country...",
+          payload: "There was an error loading the country by code...",
         });
       }
     },
     [currentCountry.alpha3Code]
   );
 
+  /* get resgion countries by region */
+  const getCountriesByRegion = useCallback(
+    async function getCountriesByRegion(region) {
+      if (currentRegion === region) return;
+      dispatch({ type: "loading" });
+      try {
+        const res = await fetch(
+          `https://restcountries.com/v3.1/region/${region}`
+        );
+        const regionCountries = await res.json();
+
+        console.log("getCountriesByRegion", regionCountries);
+        dispatch({
+          type: GET_COUNTRIRS_BY_REGION,
+          payload: { region, regionCountries },
+        });
+      } catch (error) {
+        dispatch({
+          type: "rejected",
+          payload: "There was an error loading the country by region...",
+        });
+      }
+    },
+    [currentRegion]
+  );
+
   return (
     <CountriesContext.Provider
-      value={{ countries, currentCountry, getSingleCountry, isLoading }}
+      value={{
+        countries,
+        currentCountry,
+        currentRegion,
+        currentCountries,
+        getCountryByCode,
+        getCountriesByRegion,
+        isLoading,
+      }}
     >
       {children}
     </CountriesContext.Provider>

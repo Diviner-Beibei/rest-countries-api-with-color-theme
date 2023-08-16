@@ -1,5 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
+import { useCountries } from "./contexts/CitiesContext";
 SearchCountry.propTypes = {
   theme: PropTypes.string,
 };
@@ -7,11 +8,13 @@ SearchCountry.propTypes = {
 function SearchCountry({ theme }) {
   const [search, setSearch] = useState("");
   const [isOpenFilter, setIsOpenFilter] = useState(false);
-  const [continent, setContinent] = useState("");
+  // const [continent, setContinent] = useState("");
+
+  const { currentRegion, getCountriesByRegion } = useCountries();
 
   function handleSearch(e) {
     e.preventDefault();
-    if (e.target.value.length < 3 || !continent) return;
+    if (e.target.value.length < 3 || !currentRegion) return;
 
     setSearch(e.target.value);
   }
@@ -20,8 +23,9 @@ function SearchCountry({ theme }) {
     e.preventDefault();
     console.log(e.target.textContent);
     if (!e.target.textContent) return;
-    setContinent(e.target.textContent);
     setIsOpenFilter((isOpenFilter) => !isOpenFilter);
+
+    getCountriesByRegion(e.target.textContent);
   }
 
   function handleOpenFilter(e) {
@@ -66,7 +70,7 @@ function SearchCountry({ theme }) {
           className={`pl-8 py-4 flex items-center gap-12 md:pr-4 rounded-md bg-${theme}-block w-full overflow-hidden`}
           onClick={handleOpenFilter}
         >
-          <span>Filter by Region</span>
+          <span>{currentRegion || "Filter by Region"}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1em"
