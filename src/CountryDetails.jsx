@@ -111,7 +111,7 @@ function CountryDetails({ goBack, theme }) {
           </ul>
 
           {data["borders"] && (
-            <div className="lg:absolute lg:top-64 xl:top-72 mb-10 lg:pb-20">
+            <div className="lg:absolute lg:top-[380px] mb-10 lg:pb-20">
               <h3 className="text-base font-semibold">Border Countries: </h3>
               <ul
                 className="flex flex-wrap gap-3 mt-4 md:max-w-[380px] lg:max-w-none"
