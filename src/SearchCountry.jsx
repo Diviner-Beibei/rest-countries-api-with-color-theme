@@ -73,7 +73,7 @@ function SearchCountry({ theme }) {
         className={`shadow-normal w-[200px] overflow-hidden rounded-md text-xs font-nunito-sans`}
       >
         <button
-          className={`pl-8 py-4 flex items-center md:pr-4 rounded-md bg-${theme}-component w-full overflow-hidden justify-between`}
+          className={`px-8 py-4 flex items-center rounded-md bg-${theme}-component w-full overflow-hidden justify-between`}
           onClick={handleOpenFilter}
         >
           <span>{currentRegion || "Filter by Region"}</span>
