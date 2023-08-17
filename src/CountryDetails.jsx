@@ -43,7 +43,7 @@ function CountryDetails({ goBack, theme }) {
   //theme === "light" ? "" : "fill-white"
   return (
     <div
-      className={`bg-${theme}-main pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base h-screen`}
+      className={`bg-${theme}-main pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base min-h-[800px]`}
     >
       <button
         className={`flex gap-2 items-center rounded-sm shadow-[0px_0px_7px_0_rgba(0,0,0,0.3)] px-4 py-2 ml-6 bg-${theme}-component`}
@@ -111,7 +111,7 @@ function CountryDetails({ goBack, theme }) {
           </ul>
 
           {data["borders"] && (
-            <div className="lg:absolute lg:top-[380px] mb-10 lg:pb-20">
+            <div className="lg:absolute lg:top-64 xl:top-72 mb-10 lg:pb-20">
               <h3 className="text-base font-semibold">Border Countries: </h3>
               <ul
                 className="flex flex-wrap gap-3 mt-4 md:max-w-[380px] lg:max-w-none"
