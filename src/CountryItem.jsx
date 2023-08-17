@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useCountries } from "./contexts/CitiesContext";
+import { useCountries } from "./contexts/CountriesContext";
 CountryItem.propTypes = {
   theme: PropTypes.string,
   data: PropTypes.object,
@@ -19,7 +19,7 @@ function CountryItem({ data, checkDetails, theme }) {
 
   return (
     <div
-      className={`rounded-xl overflow-hidden bg-theme-light-block w-[264px] flex flex-col gap-5 font-nunito-sans shadow-sm bg-${theme}-block`}
+      className={`rounded-xl overflow-hidden w-[264px] flex flex-col gap-5 font-nunito-sans shadow-sm bg-${theme}-component`}
       onClick={handleClick}
     >
       <img

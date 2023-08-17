@@ -1,4 +1,4 @@
-import { CountriesProvider } from "./contexts/CitiesContext";
+import { CountriesProvider } from "./contexts/CountriesContext";
 import AppLayout from "./AppLayout";
 
 function App() {

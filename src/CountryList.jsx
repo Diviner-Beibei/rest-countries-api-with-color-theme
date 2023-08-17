@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import CountryItem from "./CountryItem";
-import { useCountries } from "./contexts/CitiesContext";
+import { useCountries } from "./contexts/CountriesContext";
 import Loader from "./Loader";
 
 CountryList.propTypes = {

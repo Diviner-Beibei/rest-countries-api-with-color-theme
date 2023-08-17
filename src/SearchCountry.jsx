@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import { useCountries } from "./contexts/CitiesContext";
+import { useCountries } from "./contexts/CountriesContext";
 SearchCountry.propTypes = {
   theme: PropTypes.string,
 };
@@ -43,7 +43,7 @@ function SearchCountry({ theme }) {
     <div className="py-5 px-4 flex flex-col gap-10 flex-grow md:flex-row md:items-center md:justify-between md:px-10">
       {/* shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] */}
       <div
-        className={`flex items-center gap-2 px-5 py-2 w-[343px] max-h-[48px] rounded-md shadow-md relative md:max-w-none lg:w-[480px] bg-${theme}-block`}
+        className={`flex items-center gap-2 px-5 py-2 w-[343px] max-h-[48px] rounded-md shadow-md relative md:max-w-none lg:w-[480px] bg-${theme}-component`}
       >
         <svg
           width="16"
@@ -64,7 +64,7 @@ function SearchCountry({ theme }) {
           type="text"
           onChange={handleSearch}
           value={queryInfo}
-          className={`text-${theme}-search px-4 py-2 focus:outline-none text-xs w-full bg-${theme}-block`}
+          className={`text-${theme}-search px-4 py-2 focus:outline-none text-xs w-full bg-${theme}-component`}
           placeholder="Search for a country..."
         />
       </div>
@@ -73,7 +73,7 @@ function SearchCountry({ theme }) {
         className={`shadow-normal w-[200px] overflow-hidden rounded-md text-xs font-nunito-sans`}
       >
         <button
-          className={`pl-8 py-4 flex items-center md:pr-4 rounded-md bg-${theme}-block w-full overflow-hidden justify-between`}
+          className={`pl-8 py-4 flex items-center md:pr-4 rounded-md bg-${theme}-component w-full overflow-hidden justify-between`}
           onClick={handleOpenFilter}
         >
           <span>{currentRegion || "Filter by Region"}</span>
@@ -88,7 +88,7 @@ function SearchCountry({ theme }) {
         </button>
         {isOpenFilter && (
           <ul
-            className={`flex flex-col rounded-md mt-1 bg-${theme}-block overflow-hidden absolute z-10 max-w-[200px] w-full shadow`}
+            className={`flex flex-col rounded-md mt-1 bg-${theme}-component overflow-hidden absolute z-10 max-w-[200px] w-full shadow`}
             onClick={handleSelectContinent}
           >
             <li className="pl-8 py-2 hover:bg-gray-300">Africa</li>

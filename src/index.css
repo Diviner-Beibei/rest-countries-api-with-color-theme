@@ -7,7 +7,7 @@
   .loader {
     width: 45px;
     aspect-ratio: 0.75;
-    --c: no-repeat linear-gradient(theme(colors.stone.800) 0 0);
+    --c: no-repeat linear-gradient(#292524 0 0);
     background: var(--c) 0% 50%, var(--c) 50% 50%, var(--c) 100% 50%;
     background-size: 20% 50%;
     animation: loading 1s infinite linear;
@@ -27,4 +27,51 @@
       background-position: 0% 50%, 50% 50%, 100% 100%;
     }
   }
+}
+
+/* colors: {
+  'light': {
+    'primary': 'hsl(200, 15%, 8%)',
+    'main': 'hsl(0, 0%, 98%)',
+    'component': 'hsl(0, 0%, 100%)',
+    'search': 'hsl(0, 0%, 52%)'
+  },
+  'dark': {
+    'primary': 'hsl(0, 0%, 100%)',
+    'main': 'hsl(207, 26%, 17%)',
+    'component': 'hsl(209, 23%, 22%)',
+    'search': 'hsl(0, 0%, 100%)'
+  }
+}, */
+
+.text-light-primary {
+  color: hsl(200, 15%, 8%);
+}
+
+.bg-light-main {
+  background-color: hsl(0, 0%, 98%);
+}
+
+.bg-light-component {
+  background-color: hsl(0, 0%, 100%);
+}
+
+.text-light-search {
+  color: hsl(0, 0%, 52%);
+}
+
+.text-dark-primary {
+  color: hsl(0, 0%, 100%);
+}
+
+.bg-dark-main {
+  background-color: hsl(207, 26%, 17%);
+}
+
+.bg-dark-component {
+  background-color: hsl(209, 23%, 22%);
+}
+
+.text-dark-search {
+  color: hsl(0, 0%, 100%);
 }

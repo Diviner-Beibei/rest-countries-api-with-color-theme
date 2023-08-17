@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { useCountries } from "./contexts/CitiesContext";
+import { useCountries } from "./contexts/CountriesContext";
 import Loader from "./Loader";
 CountryDetails.propTypes = {
   goBack: PropTypes.func,
@@ -46,7 +46,7 @@ function CountryDetails({ goBack, theme }) {
       className={`bg-${theme}-main pt-10 pb-10 md:px-5 mt-1 text-sm lg:text-base h-screen`}
     >
       <button
-        className={`flex gap-2 items-center rounded-sm shadow-[0px_0px_7px_0_rgba(0,0,0,0.3)] px-4 py-2 ml-6 bg-${theme}-block`}
+        className={`flex gap-2 items-center rounded-sm shadow-[0px_0px_7px_0_rgba(0,0,0,0.3)] px-4 py-2 ml-6 bg-${theme}-component`}
         onClick={goBack}
       >
         <svg
@@ -120,7 +120,7 @@ function CountryDetails({ goBack, theme }) {
                 {data["borders"].map((e) => {
                   return (
                     <li
-                      className={`shadow-normal px-4 py-1 ccode bg-${theme}-block`}
+                      className={`shadow-normal px-4 py-1 ccode bg-${theme}-component`}
                       key={e}
                     >
                       {e}

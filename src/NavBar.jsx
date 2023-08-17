@@ -7,7 +7,7 @@ NavBar.propTypes = {
 function NavBar({ theme, switchTheme }) {
   return (
     <nav
-      className={`flex justify-between px-6 md:px-10 py-6 shadow-md font-nunito-sans bg-${theme}-block`}
+      className={`flex justify-between px-6 md:px-10 py-6 shadow-md font-nunito-sans bg-${theme}-component`}
     >
       <h1 className="text-sm font-extrabold md:text-2xl">
         Where in the world?
