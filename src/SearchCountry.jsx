@@ -40,7 +40,7 @@ function SearchCountry({ theme }) {
   }
 
   return (
-    <div className="py-5 px-4 flex flex-col gap-10 flex-grow md:flex-row md:items-center md:justify-between md:px-10">
+    <div className="py-5 md:py-10 px-4 flex flex-col gap-10 flex-grow md:flex-row md:items-center md:justify-between md:px-10">
       {/* shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)] */}
       <div
         className={`flex items-center gap-2 px-5 py-2 w-[343px] max-h-[48px] rounded-md shadow-md relative md:max-w-none lg:w-[480px] bg-${theme}-component`}

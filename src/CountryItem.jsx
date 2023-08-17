@@ -31,7 +31,7 @@ function CountryItem({ data, checkDetails, theme }) {
       <div className="text-sm font-light pl-8 pb-12 flex flex-col gap-1">
         <p className="">
           <span className="font-semibold">Population:</span>
-          {data["population"]}
+          {data["population"].toLocaleString()}
         </p>
         <p className="">
           <span className="font-semibold">Region:</span>

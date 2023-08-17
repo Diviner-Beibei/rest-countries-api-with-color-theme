@@ -79,7 +79,7 @@ function CountryDetails({ goBack, theme }) {
             </li>
             <li>
               <span className="font-semibold">Population: </span>
-              {data["population"]}
+              {data["population"].toLocaleString()}
             </li>
             <li>
               <span className="font-semibold">Region: </span>
